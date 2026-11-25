@@ -1,7 +1,7 @@
 // 线上验收 v1.1：Pages 服务的字节是否已经是新版 + 仓库文件是否齐全
 const fs = require('fs'), path = require('path');
 const LOCAL = path.join(__dirname, '..', 'index.html');
-const URL = 'https://xcxi.github.io/shake-shake-beasts/';
+const URL = 'https://adgogogo.github.io/shake-shake-beasts/';
 const local = fs.readFileSync(LOCAL);
 const sleep = ms => new Promise(s => setTimeout(s, ms));
 
@@ -35,10 +35,10 @@ const sleep = ms => new Promise(s => setTimeout(s, ms));
   console.log(ok ? '\nLIVE_OK 线上已经是最新版' : '\nLIVE_NOT_YET 还在构建，稍后再看');
 
   const api = async p => { const r = await fetch('https://api.github.com' + p, { headers: { 'user-agent': 'dsh', accept: 'application/vnd.github+json' } }); return { s: r.status, j: await r.json().catch(() => null) }; };
-  const tools = await api('/repos/XCxi/shake-shake-beasts/contents/tools');
+  const tools = await api('/repos/adgogogo/shake-shake-beasts/contents/tools');
   console.log('TOOLS', (tools.j || []).map(f => f.name).join(' '));
-  const docs = await api('/repos/XCxi/shake-shake-beasts/contents/docs');
+  const docs = await api('/repos/adgogogo/shake-shake-beasts/contents/docs');
   console.log('DOCS', (docs.j || []).map(f => f.name).join(' '));
-  const c = await api('/repos/XCxi/shake-shake-beasts/commits?per_page=3');
+  const c = await api('/repos/adgogogo/shake-shake-beasts/commits?per_page=3');
   (c.j || []).forEach(x => console.log('  ' + x.sha.slice(0, 7) + ' ' + x.commit.message.split('\n')[0]));
 })();
